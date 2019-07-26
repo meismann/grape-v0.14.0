@@ -2,13 +2,13 @@ require 'spec_helper'
 
 require 'base64'
 
-describe Grape::Middleware::Auth::Strategies do
+describe GrapeV0_14_0::Middleware::Auth::Strategies do
   context 'Basic Auth' do
     def app
       proc = ->(u, p) { u && p && u == p }
       Rack::Builder.new do |b|
-        b.use Grape::Middleware::Error
-        b.use(Grape::Middleware::Auth::Base, type: :http_basic, proc: proc)
+        b.use GrapeV0_14_0::Middleware::Error
+        b.use(GrapeV0_14_0::Middleware::Auth::Base, type: :http_basic, proc: proc)
         b.run ->(_env) { [200, {}, ['Hello there.']] }
       end
     end
@@ -40,7 +40,7 @@ describe Grape::Middleware::Auth::Strategies do
     end
 
     module StrategiesSpec
-      class Test < Grape::API
+      class Test < GrapeV0_14_0::API
         http_digest(realm: 'Test Api', opaque: 'secret') do |username|
           { 'foo' => 'bar' }[username]
         end

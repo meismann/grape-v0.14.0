@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-module Grape
+module GrapeV0_14_0
   module DSL
     module CallbacksSpec
       class Dummy
-        include Grape::DSL::Callbacks
+        include GrapeV0_14_0::DSL::Callbacks
       end
     end
 

@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-module Grape
+module GrapeV0_14_0
   module DSL
     module ConfigurationSpec
       class Dummy
-        include Grape::DSL::Configuration
+        include GrapeV0_14_0::DSL::Configuration
       end
     end
     describe Configuration do

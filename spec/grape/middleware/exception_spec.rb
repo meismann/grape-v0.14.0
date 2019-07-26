@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'active_support/core_ext/hash'
 
-describe Grape::Middleware::Error do
+describe GrapeV0_14_0::Middleware::Error do
   # raises a text exception
   module ExceptionSpec
     class ExceptionApp
@@ -39,7 +39,7 @@ describe Grape::Middleware::Error do
     end
 
     # raises a custom error
-    class CustomError < Grape::Exceptions::Base
+    class CustomError < GrapeV0_14_0::Exceptions::Base
     end
 
     class CustomErrorApp
@@ -56,7 +56,7 @@ describe Grape::Middleware::Error do
   it 'does not trap errors by default' do
     @app ||= Rack::Builder.app do
       use Spec::Support::EndpointFaker
-      use Grape::Middleware::Error
+      use GrapeV0_14_0::Middleware::Error
       run ExceptionSpec::ExceptionApp
     end
     expect { get '/' }.to raise_error
@@ -66,7 +66,7 @@ describe Grape::Middleware::Error do
     it 'sets the message appropriately' do
       @app ||= Rack::Builder.app do
         use Spec::Support::EndpointFaker
-        use Grape::Middleware::Error, rescue_all: true
+        use GrapeV0_14_0::Middleware::Error, rescue_all: true
         run ExceptionSpec::ExceptionApp
       end
       get '/'
@@ -76,7 +76,7 @@ describe Grape::Middleware::Error do
     it 'defaults to a 500 status' do
       @app ||= Rack::Builder.app do
         use Spec::Support::EndpointFaker
-        use Grape::Middleware::Error, rescue_all: true
+        use GrapeV0_14_0::Middleware::Error, rescue_all: true
         run ExceptionSpec::ExceptionApp
       end
       get '/'
@@ -86,7 +86,7 @@ describe Grape::Middleware::Error do
     it 'is possible to specify a different default status code' do
       @app ||= Rack::Builder.app do
         use Spec::Support::EndpointFaker
-        use Grape::Middleware::Error, rescue_all: true, default_status: 500
+        use GrapeV0_14_0::Middleware::Error, rescue_all: true, default_status: 500
         run ExceptionSpec::ExceptionApp
       end
       get '/'
@@ -96,7 +96,7 @@ describe Grape::Middleware::Error do
     it 'is possible to return errors in json format' do
       @app ||= Rack::Builder.app do
         use Spec::Support::EndpointFaker
-        use Grape::Middleware::Error, rescue_all: true, format: :json
+        use GrapeV0_14_0::Middleware::Error, rescue_all: true, format: :json
         run ExceptionSpec::ExceptionApp
       end
       get '/'
@@ -106,7 +106,7 @@ describe Grape::Middleware::Error do
     it 'is possible to return hash errors in json format' do
       @app ||= Rack::Builder.app do
         use Spec::Support::EndpointFaker
-        use Grape::Middleware::Error, rescue_all: true, format: :json
+        use GrapeV0_14_0::Middleware::Error, rescue_all: true, format: :json
         run ExceptionSpec::ErrorHashApp
       end
       get '/'
@@ -117,7 +117,7 @@ describe Grape::Middleware::Error do
     it 'is possible to return errors in jsonapi format' do
       @app ||= Rack::Builder.app do
         use Spec::Support::EndpointFaker
-        use Grape::Middleware::Error, rescue_all: true, format: :jsonapi
+        use GrapeV0_14_0::Middleware::Error, rescue_all: true, format: :jsonapi
         run ExceptionSpec::ExceptionApp
       end
       get '/'
@@ -127,7 +127,7 @@ describe Grape::Middleware::Error do
     it 'is possible to return hash errors in jsonapi format' do
       @app ||= Rack::Builder.app do
         use Spec::Support::EndpointFaker
-        use Grape::Middleware::Error, rescue_all: true, format: :jsonapi
+        use GrapeV0_14_0::Middleware::Error, rescue_all: true, format: :jsonapi
         run ExceptionSpec::ErrorHashApp
       end
       get '/'
@@ -138,7 +138,7 @@ describe Grape::Middleware::Error do
     it 'is possible to return errors in xml format' do
       @app ||= Rack::Builder.app do
         use Spec::Support::EndpointFaker
-        use Grape::Middleware::Error, rescue_all: true, format: :xml
+        use GrapeV0_14_0::Middleware::Error, rescue_all: true, format: :xml
         run ExceptionSpec::ExceptionApp
       end
       get '/'
@@ -148,7 +148,7 @@ describe Grape::Middleware::Error do
     it 'is possible to return hash errors in xml format' do
       @app ||= Rack::Builder.app do
         use Spec::Support::EndpointFaker
-        use Grape::Middleware::Error, rescue_all: true, format: :xml
+        use GrapeV0_14_0::Middleware::Error, rescue_all: true, format: :xml
         run ExceptionSpec::ErrorHashApp
       end
       get '/'
@@ -159,7 +159,7 @@ describe Grape::Middleware::Error do
     it 'is possible to specify a custom formatter' do
       @app ||= Rack::Builder.app do
         use Spec::Support::EndpointFaker
-        use Grape::Middleware::Error, rescue_all: true,
+        use GrapeV0_14_0::Middleware::Error, rescue_all: true,
                                       format: :custom,
                                       error_formatters: {
                                         custom: lambda do |message, _backtrace, _options, _env|
@@ -175,17 +175,17 @@ describe Grape::Middleware::Error do
     it 'does not trap regular error! codes' do
       @app ||= Rack::Builder.app do
         use Spec::Support::EndpointFaker
-        use Grape::Middleware::Error
+        use GrapeV0_14_0::Middleware::Error
         run ExceptionSpec::AccessDeniedApp
       end
       get '/'
       expect(last_response.status).to eq(401)
     end
 
-    it 'responds to custom Grape exceptions appropriately' do
+    it 'responds to custom GrapeV0_14_0 exceptions appropriately' do
       @app ||= Rack::Builder.app do
         use Spec::Support::EndpointFaker
-        use Grape::Middleware::Error, rescue_all: false
+        use GrapeV0_14_0::Middleware::Error, rescue_all: false
         run ExceptionSpec::CustomErrorApp
       end
 

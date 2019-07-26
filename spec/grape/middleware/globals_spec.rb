@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Grape::Middleware::Globals do
-  subject { Grape::Middleware::Globals.new(blank_app) }
+describe GrapeV0_14_0::Middleware::Globals do
+  subject { GrapeV0_14_0::Middleware::Globals.new(blank_app) }
   before { allow(subject).to receive(:dup).and_return(subject) }
 
   let(:blank_app) { ->(_env) { [200, {}, 'Hi there.'] } }
@@ -13,7 +13,7 @@ describe Grape::Middleware::Globals do
   context 'environment' do
     it 'should set the grape.request environment' do
       subject.call({})
-      expect(subject.env['grape.request']).to be_a(Grape::Request)
+      expect(subject.env['grape.request']).to be_a(GrapeV0_14_0::Request)
     end
     it 'should set the grape.request.headers environment' do
       subject.call({})

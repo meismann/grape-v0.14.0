@@ -1,9 +1,9 @@
 require 'spec_helper'
 require 'base64'
 
-describe Grape::Middleware::Auth::Base do
+describe GrapeV0_14_0::Middleware::Auth::Base do
   subject do
-    Class.new(Grape::API) do
+    Class.new(GrapeV0_14_0::API) do
       http_basic realm: 'my_realm' do |user, password|
         user && password && user == password
       end

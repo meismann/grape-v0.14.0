@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Grape::Middleware::Auth::DSL do
-  subject { Class.new(Grape::API) }
+describe GrapeV0_14_0::Middleware::Auth::DSL do
+  subject { Class.new(GrapeV0_14_0::API) }
 
   let(:block) { ->() {} }
   let(:settings) do
@@ -15,15 +15,15 @@ describe Grape::Middleware::Auth::DSL do
 
   describe '.auth' do
     it 'stets auth parameters' do
-      expect(subject).to receive(:use).with(Grape::Middleware::Auth::Base, settings)
+      expect(subject).to receive(:use).with(GrapeV0_14_0::Middleware::Auth::Base, settings)
 
       subject.auth :http_digest, realm: settings[:realm], opaque: settings[:opaque], &settings[:proc]
       expect(subject.auth).to eq(settings)
     end
 
     it 'can be called multiple times' do
-      expect(subject).to receive(:use).with(Grape::Middleware::Auth::Base, settings)
-      expect(subject).to receive(:use).with(Grape::Middleware::Auth::Base, settings.merge(realm: 'super_secret'))
+      expect(subject).to receive(:use).with(GrapeV0_14_0::Middleware::Auth::Base, settings)
+      expect(subject).to receive(:use).with(GrapeV0_14_0::Middleware::Auth::Base, settings.merge(realm: 'super_secret'))
 
       subject.auth :http_digest, realm: settings[:realm], opaque: settings[:opaque], &settings[:proc]
       first_settings = subject.auth

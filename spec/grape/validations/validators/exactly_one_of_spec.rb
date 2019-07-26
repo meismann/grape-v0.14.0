@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Grape::Validations::ExactlyOneOfValidator do
+describe GrapeV0_14_0::Validations::ExactlyOneOfValidator do
   describe '#validate!' do
     let(:scope) do
       Struct.new(:opts) do
@@ -20,7 +20,7 @@ describe Grape::Validations::ExactlyOneOfValidator do
       it 'raises a validation exception' do
         expect do
           validator.validate! params
-        end.to raise_error(Grape::Exceptions::Validation)
+        end.to raise_error(GrapeV0_14_0::Exceptions::Validation)
       end
 
       context 'mixed with other params' do
@@ -29,7 +29,7 @@ describe Grape::Validations::ExactlyOneOfValidator do
         it 'still raises a validation exception' do
           expect do
             validator.validate! mixed_params
-          end.to raise_error(Grape::Exceptions::Validation)
+          end.to raise_error(GrapeV0_14_0::Exceptions::Validation)
         end
       end
     end
@@ -40,7 +40,7 @@ describe Grape::Validations::ExactlyOneOfValidator do
       it 'raises a validation exception' do
         expect do
           validator.validate! params
-        end.to raise_error(Grape::Exceptions::Validation)
+        end.to raise_error(GrapeV0_14_0::Exceptions::Validation)
       end
     end
 
@@ -50,7 +50,7 @@ describe Grape::Validations::ExactlyOneOfValidator do
       it 'raises a validation exception' do
         expect do
           validator.validate! params
-        end.to raise_error(Grape::Exceptions::Validation)
+        end.to raise_error(GrapeV0_14_0::Exceptions::Validation)
       end
     end
 
@@ -60,7 +60,7 @@ describe Grape::Validations::ExactlyOneOfValidator do
       it 'raises a validation exception' do
         expect do
           validator.validate! params
-        end.to raise_error(Grape::Exceptions::Validation)
+        end.to raise_error(GrapeV0_14_0::Exceptions::Validation)
       end
     end
 

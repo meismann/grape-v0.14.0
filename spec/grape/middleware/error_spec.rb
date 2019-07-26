@@ -1,9 +1,9 @@
 require 'spec_helper'
-require 'grape-entity'
+require 'grape-entity_v0_7_1'
 
-describe Grape::Middleware::Error do
+describe GrapeV0_14_0::Middleware::Error do
   module ErrorSpec
-    class ErrorEntity < Grape::Entity
+    class ErrorEntity < GrapeV0_14_0::Entity
       expose :code
       expose :static
 
@@ -28,7 +28,7 @@ describe Grape::Middleware::Error do
     opts = options
     Rack::Builder.app do
       use Spec::Support::EndpointFaker
-      use Grape::Middleware::Error, opts
+      use GrapeV0_14_0::Middleware::Error, opts
       run ErrorSpec::ErrApp
     end
   end

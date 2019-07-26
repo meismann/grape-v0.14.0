@@ -1,8 +1,8 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-require 'grape'
+require 'grape_v0_14_0'
 require 'benchmark/ips'
 
-class API < Grape::API
+class API < GrapeV0_14_0::API
   prefix :api
   version 'v1', using: :path
   get '/' do

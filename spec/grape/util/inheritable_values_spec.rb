@@ -1,5 +1,5 @@
 require 'spec_helper'
-module Grape
+module GrapeV0_14_0
   module Util
     describe InheritableValues do
       let(:parent) { InheritableValues.new }

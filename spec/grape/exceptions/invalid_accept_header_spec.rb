@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Grape::Exceptions::InvalidAcceptHeader do
+describe GrapeV0_14_0::Exceptions::InvalidAcceptHeader do
   shared_examples_for 'a valid request' do
     it 'does return with status 200' do
       expect(last_response.status).to eq 200
@@ -33,7 +33,7 @@ describe Grape::Exceptions::InvalidAcceptHeader do
   end
 
   context 'API with cascade=false and rescue_from :all handler' do
-    subject { Class.new(Grape::API) }
+    subject { Class.new(GrapeV0_14_0::API) }
     before do
       subject.version 'v99', using: :header, vendor: 'vendorname', format: :json, cascade: false
       subject.rescue_from :all do |e|
@@ -65,7 +65,7 @@ describe Grape::Exceptions::InvalidAcceptHeader do
   end
 
   context 'API with cascade=false and without a rescue handler' do
-    subject { Class.new(Grape::API) }
+    subject { Class.new(GrapeV0_14_0::API) }
     before do
       subject.version 'v99', using: :header, vendor: 'vendorname', format: :json, cascade: false
       subject.get '/beer' do
@@ -95,7 +95,7 @@ describe Grape::Exceptions::InvalidAcceptHeader do
   end
 
   context 'API with cascade=false and with rescue_from :all handler and http_codes' do
-    subject { Class.new(Grape::API) }
+    subject { Class.new(GrapeV0_14_0::API) }
     before do
       subject.version 'v99', using: :header, vendor: 'vendorname', format: :json, cascade: false
       subject.rescue_from :all do |e|
@@ -132,7 +132,7 @@ describe Grape::Exceptions::InvalidAcceptHeader do
   end
 
   context 'API with cascade=false, http_codes but without a rescue handler' do
-    subject { Class.new(Grape::API) }
+    subject { Class.new(GrapeV0_14_0::API) }
     before do
       subject.version 'v99', using: :header, vendor: 'vendorname', format: :json, cascade: false
       subject.desc 'Get beer' do
@@ -167,7 +167,7 @@ describe Grape::Exceptions::InvalidAcceptHeader do
   end
 
   context 'API with cascade=true and rescue_from :all handler' do
-    subject { Class.new(Grape::API) }
+    subject { Class.new(GrapeV0_14_0::API) }
     before do
       subject.version 'v99', using: :header, vendor: 'vendorname', format: :json, cascade: true
       subject.rescue_from :all do |e|
@@ -206,7 +206,7 @@ describe Grape::Exceptions::InvalidAcceptHeader do
   end
 
   context 'API with cascade=true and without a rescue handler' do
-    subject { Class.new(Grape::API) }
+    subject { Class.new(GrapeV0_14_0::API) }
     before do
       subject.version 'v99', using: :header, vendor: 'vendorname', format: :json, cascade: true
       subject.get '/beer' do
@@ -236,7 +236,7 @@ describe Grape::Exceptions::InvalidAcceptHeader do
   end
 
   context 'API with cascade=true and with rescue_from :all handler and http_codes' do
-    subject { Class.new(Grape::API) }
+    subject { Class.new(GrapeV0_14_0::API) }
     before do
       subject.version 'v99', using: :header, vendor: 'vendorname', format: :json, cascade: true
       subject.rescue_from :all do |e|
@@ -280,7 +280,7 @@ describe Grape::Exceptions::InvalidAcceptHeader do
   end
 
   context 'API with cascade=true, http_codes but without a rescue handler' do
-    subject { Class.new(Grape::API) }
+    subject { Class.new(GrapeV0_14_0::API) }
     before do
       subject.version 'v99', using: :header, vendor: 'vendorname', format: :json, cascade: true
       subject.desc 'Get beer' do

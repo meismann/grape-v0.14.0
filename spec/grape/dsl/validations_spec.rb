@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-module Grape
+module GrapeV0_14_0
   module DSL
     module ValidationsSpec
       class Dummy
-        include Grape::DSL::Validations
+        include GrapeV0_14_0::DSL::Validations
       end
     end
 
@@ -47,7 +47,7 @@ module Grape
 
       describe '.params' do
         it 'returns a ParamsScope' do
-          expect(subject.params).to be_a Grape::Validations::ParamsScope
+          expect(subject.params).to be_a GrapeV0_14_0::Validations::ParamsScope
         end
 
         it 'evaluates block' do

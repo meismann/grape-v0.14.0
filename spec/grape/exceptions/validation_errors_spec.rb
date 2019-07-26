@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ostruct'
 
-describe Grape::Exceptions::ValidationErrors do
+describe GrapeV0_14_0::Exceptions::ValidationErrors do
   let(:validation_message) { 'FooBar is invalid' }
   let(:validation_error) { OpenStruct.new(params: [validation_message]) }
 
@@ -35,8 +35,8 @@ describe Grape::Exceptions::ValidationErrors do
 
   describe '#full_messages' do
     context 'with errors' do
-      let(:validation_error_1) { Grape::Exceptions::Validation.new(params: ['id'], message_key: 'presence') }
-      let(:validation_error_2) { Grape::Exceptions::Validation.new(params: ['name'], message_key: 'presence') }
+      let(:validation_error_1) { GrapeV0_14_0::Exceptions::Validation.new(params: ['id'], message_key: 'presence') }
+      let(:validation_error_2) { GrapeV0_14_0::Exceptions::Validation.new(params: ['name'], message_key: 'presence') }
       subject { described_class.new(errors: [validation_error_1, validation_error_2]).full_messages }
 
       it 'returns an array with each errors full message' do
@@ -46,7 +46,7 @@ describe Grape::Exceptions::ValidationErrors do
   end
 
   context 'api' do
-    subject { Class.new(Grape::API) }
+    subject { Class.new(GrapeV0_14_0::API) }
 
     def app
       subject
@@ -54,7 +54,7 @@ describe Grape::Exceptions::ValidationErrors do
 
     it 'can return structured json with separate fields' do
       subject.format :json
-      subject.rescue_from Grape::Exceptions::ValidationErrors do |e|
+      subject.rescue_from GrapeV0_14_0::Exceptions::ValidationErrors do |e|
         error!(e, 400)
       end
       subject.params do

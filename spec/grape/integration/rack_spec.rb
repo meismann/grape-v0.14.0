@@ -4,7 +4,7 @@ describe Rack do
   it 'correctly populates params from a Tempfile' do
     input = Tempfile.new 'rubbish'
     begin
-      app = Class.new(Grape::API) do
+      app = Class.new(GrapeV0_14_0::API) do
         format :json
         post do
           { params_keys: params.keys }

@@ -2,7 +2,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'support'))
 
-require 'grape'
+require 'grape_v0_14_0'
 
 require 'rubygems'
 require 'bundler'
@@ -24,5 +24,5 @@ RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.raise_errors_for_deprecations!
 
-  config.before(:each) { Grape::Util::InheritableSetting.reset_global! }
+  config.before(:each) { GrapeV0_14_0::Util::InheritableSetting.reset_global! }
 end

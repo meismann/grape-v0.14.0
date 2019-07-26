@@ -1,4 +1,4 @@
 require 'spec_helper'
 
-describe Grape::Validations::AttributesIterator do
+describe GrapeV0_14_0::Validations::AttributesIterator do
 end

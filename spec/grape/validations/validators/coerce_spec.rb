@@ -1,9 +1,9 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe Grape::Validations::CoerceValidator do
+describe GrapeV0_14_0::Validations::CoerceValidator do
   subject do
-    Class.new(Grape::API)
+    Class.new(GrapeV0_14_0::API)
   end
 
   def app
@@ -418,7 +418,7 @@ describe Grape::Validations::CoerceValidator do
     end
 
     context 'multiple types' do
-      Boolean = Grape::API::Boolean
+      Boolean = GrapeV0_14_0::API::Boolean
 
       it 'coerces to first possible type' do
         subject.params do

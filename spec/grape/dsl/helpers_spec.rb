@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-module Grape
+module GrapeV0_14_0
   module DSL
     module HelpersSpec
       class Dummy
-        include Grape::DSL::Helpers
+        include GrapeV0_14_0::DSL::Helpers
 
         def self.mod
           namespace_stackable(:helpers).first
@@ -13,7 +13,7 @@ module Grape
     end
 
     module BooleanParam
-      extend Grape::API::Helpers
+      extend GrapeV0_14_0::API::Helpers
 
       params :requires_toggle_prm do
         requires :toggle_prm, type: Boolean
@@ -32,7 +32,7 @@ module Grape
 
       describe '.helpers' do
         it 'adds a module with the given block' do
-          expect(subject).to receive(:namespace_stackable).with(:helpers, kind_of(Grape::DSL::Helpers::BaseHelper)).and_call_original
+          expect(subject).to receive(:namespace_stackable).with(:helpers, kind_of(GrapeV0_14_0::DSL::Helpers::BaseHelper)).and_call_original
           expect(subject).to receive(:namespace_stackable).with(:helpers).and_call_original
           subject.helpers(&proc)
 
@@ -42,7 +42,7 @@ module Grape
         it 'uses provided modules' do
           mod = Module.new
 
-          expect(subject).to receive(:namespace_stackable).with(:helpers, kind_of(Grape::DSL::Helpers::BaseHelper)).and_call_original
+          expect(subject).to receive(:namespace_stackable).with(:helpers, kind_of(GrapeV0_14_0::DSL::Helpers::BaseHelper)).and_call_original
           expect(subject).to receive(:namespace_stackable).with(:helpers).and_call_original
           subject.helpers(mod, &proc)
 

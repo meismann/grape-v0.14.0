@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Grape::Validations::Types do
+describe GrapeV0_14_0::Validations::Types do
   module TypesSpec
     class FooType
       def self.parse(_)

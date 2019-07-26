@@ -1,10 +1,10 @@
 require 'spec_helper'
-module Grape
+module GrapeV0_14_0
   module Util
     describe 'StrictHashConfiguration' do
       subject do
         Class.new do
-          include Grape::Util::StrictHashConfiguration.module(:config1, :config2, config3: [:config4], config5: [config6: [:config7, :config8]])
+          include GrapeV0_14_0::Util::StrictHashConfiguration.module(:config1, :config2, config3: [:config4], config5: [config6: [:config7, :config8]])
         end
       end
 

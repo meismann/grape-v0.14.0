@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-module Grape
+module GrapeV0_14_0
   module DSL
     module SettingsSpec
       class Dummy
-        include Grape::DSL::Settings
+        include GrapeV0_14_0::DSL::Settings
 
         def reset_validations!; end
       end

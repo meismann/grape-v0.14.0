@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Grape::Validations::AtLeastOneOfValidator do
+describe GrapeV0_14_0::Validations::AtLeastOneOfValidator do
   describe '#validate!' do
     let(:scope) do
       Struct.new(:opts) do
@@ -52,7 +52,7 @@ describe Grape::Validations::AtLeastOneOfValidator do
       it 'raises a validation exception' do
         expect do
           validator.validate! params
-        end.to raise_error(Grape::Exceptions::Validation)
+        end.to raise_error(GrapeV0_14_0::Exceptions::Validation)
       end
     end
 

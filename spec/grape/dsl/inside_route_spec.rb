@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-module Grape
+module GrapeV0_14_0
   module DSL
     module InsideRouteSpec
       class Dummy
-        include Grape::DSL::InsideRoute
+        include GrapeV0_14_0::DSL::InsideRoute
 
         attr_reader :env, :request, :new_settings
 
@@ -91,14 +91,14 @@ module Grape
       describe '#status' do
         %w(GET PUT DELETE OPTIONS).each do |method|
           it 'defaults to 200 on GET' do
-            request = Grape::Request.new(Rack::MockRequest.env_for('/', method: method))
+            request = GrapeV0_14_0::Request.new(Rack::MockRequest.env_for('/', method: method))
             expect(subject).to receive(:request).and_return(request)
             expect(subject.status).to eq 200
           end
         end
 
         it 'defaults to 201 on POST' do
-          request = Grape::Request.new(Rack::MockRequest.env_for('/', method: 'POST'))
+          request = GrapeV0_14_0::Request.new(Rack::MockRequest.env_for('/', method: 'POST'))
           expect(subject).to receive(:request).and_return(request)
           expect(subject.status).to eq 201
         end
@@ -164,7 +164,7 @@ module Grape
 
       describe '#cookies' do
         it 'returns an instance of Cookies' do
-          expect(subject.cookies).to be_a Grape::Cookies
+          expect(subject.cookies).to be_a GrapeV0_14_0::Cookies
         end
       end
 
@@ -202,7 +202,7 @@ module Grape
           end
 
           it 'returns value wrapped in FileResponse' do
-            expect(subject.file).to eq Grape::Util::FileResponse.new('file')
+            expect(subject.file).to eq GrapeV0_14_0::Util::FileResponse.new('file')
           end
         end
 
@@ -221,11 +221,11 @@ module Grape
           end
 
           it 'returns value wrapped in FileResponse' do
-            expect(subject.stream).to eq Grape::Util::FileResponse.new('file')
+            expect(subject.stream).to eq GrapeV0_14_0::Util::FileResponse.new('file')
           end
 
           it 'also sets result of file to value wrapped in FileResponse' do
-            expect(subject.file).to eq Grape::Util::FileResponse.new('file')
+            expect(subject.file).to eq GrapeV0_14_0::Util::FileResponse.new('file')
           end
 
           it 'sets Cache-Control header to no-cache' do
@@ -345,7 +345,7 @@ module Grape
 
         it 'is not available by default' do
           expect { subject.declared({}) }.to raise_error(
-            Grape::DSL::InsideRoute::MethodNotYetAvailable)
+            GrapeV0_14_0::DSL::InsideRoute::MethodNotYetAvailable)
         end
       end
     end

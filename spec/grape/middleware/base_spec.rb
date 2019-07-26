@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Grape::Middleware::Base do
-  subject { Grape::Middleware::Base.new(blank_app) }
+describe GrapeV0_14_0::Middleware::Base do
+  subject { GrapeV0_14_0::Middleware::Base.new(blank_app) }
   let(:blank_app) { ->(_) { [200, {}, 'Hi there.'] } }
 
   before do
@@ -35,7 +35,7 @@ describe Grape::Middleware::Base do
   end
 
   describe '#response' do
-    subject { Grape::Middleware::Base.new(response) }
+    subject { GrapeV0_14_0::Middleware::Base.new(response) }
 
     context Array do
       let(:response) { ->(_) { [204, { abc: 1 }, 'test'] } }
@@ -78,12 +78,12 @@ describe Grape::Middleware::Base do
 
   context 'options' do
     it 'persists options passed at initialization' do
-      expect(Grape::Middleware::Base.new(blank_app, abc: true).options[:abc]).to be true
+      expect(GrapeV0_14_0::Middleware::Base.new(blank_app, abc: true).options[:abc]).to be true
     end
 
     context 'defaults' do
       module BaseSpec
-        class ExampleWare < Grape::Middleware::Base
+        class ExampleWare < GrapeV0_14_0::Middleware::Base
           def default_options
             { monkey: true }
           end

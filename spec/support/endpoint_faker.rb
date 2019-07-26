@@ -1,7 +1,7 @@
 module Spec
   module Support
     class EndpointFaker
-      class FakerAPI < Grape::API
+      class FakerAPI < GrapeV0_14_0::API
         get '/' do
         end
       end
@@ -13,7 +13,7 @@ module Spec
 
       def call(env)
         @endpoint.instance_exec do
-          @request = Grape::Request.new(env.dup)
+          @request = GrapeV0_14_0::Request.new(env.dup)
         end
 
         @app.call(env.merge('api.endpoint' => @endpoint))

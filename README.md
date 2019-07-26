@@ -247,7 +247,7 @@ If you wish to mount Grape alongside another Rack framework such as Sinatra, you
 # Example config.ru
 
 require 'sinatra'
-require 'grape'
+require 'grape_v0_14_0'
 
 class API < Grape::API
   get :hello do

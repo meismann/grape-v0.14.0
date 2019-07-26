@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Grape::Middleware::Formatter do
-  subject { Grape::Middleware::Formatter.new(app) }
+describe GrapeV0_14_0::Middleware::Formatter do
+  subject { GrapeV0_14_0::Middleware::Formatter.new(app) }
   before { allow(subject).to receive(:dup).and_return(subject) }
 
   let(:app) { ->(_env) { [200, {}, [@body || { 'foo' => 'bar' }]] } }
@@ -50,11 +50,11 @@ describe Grape::Middleware::Formatter do
   context 'error handling' do
     let(:formatter) { double(:formatter) }
     before do
-      allow(Grape::Formatter::Base).to receive(:formatter_for) { formatter }
+      allow(GrapeV0_14_0::Formatter::Base).to receive(:formatter_for) { formatter }
     end
 
     it 'rescues formatter-specific exceptions' do
-      allow(formatter).to receive(:call) { fail Grape::Exceptions::InvalidFormatter.new(String, 'xml') }
+      allow(formatter).to receive(:call) { fail GrapeV0_14_0::Exceptions::InvalidFormatter.new(String, 'xml') }
 
       expect do
         catch(:error) { subject.call('PATH_INFO' => '/somewhere.xml', 'HTTP_ACCEPT' => 'application/json') }

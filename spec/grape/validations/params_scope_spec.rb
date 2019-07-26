@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Grape::Validations::ParamsScope do
+describe GrapeV0_14_0::Validations::ParamsScope do
   subject do
-    Class.new(Grape::API)
+    Class.new(GrapeV0_14_0::API)
   end
 
   def app
@@ -146,13 +146,13 @@ describe Grape::Validations::ParamsScope do
     it 'raises exception when values are of different type' do
       expect do
         subject.params { requires :numbers, type: Array, values: [1, 'definitely not a number', 3] }
-      end.to raise_error Grape::Exceptions::IncompatibleOptionValues
+      end.to raise_error GrapeV0_14_0::Exceptions::IncompatibleOptionValues
     end
 
     it 'raises exception when range values have different endpoint types' do
       expect do
         subject.params { requires :numbers, type: Array, values: 0.0..10 }
-      end.to raise_error Grape::Exceptions::IncompatibleOptionValues
+      end.to raise_error GrapeV0_14_0::Exceptions::IncompatibleOptionValues
     end
   end
 
@@ -161,7 +161,7 @@ describe Grape::Validations::ParamsScope do
       it 'raises exception' do
         expect do
           subject.params { requires :latitude, type: Integer, values: -90.0..90 }
-        end.to raise_error Grape::Exceptions::IncompatibleOptionValues
+        end.to raise_error GrapeV0_14_0::Exceptions::IncompatibleOptionValues
       end
     end
 
@@ -169,7 +169,7 @@ describe Grape::Validations::ParamsScope do
       it 'raises exception' do
         expect do
           subject.params { requires :latitude, type: Integer, values: -90..90.0 }
-        end.to raise_error Grape::Exceptions::IncompatibleOptionValues
+        end.to raise_error GrapeV0_14_0::Exceptions::IncompatibleOptionValues
       end
     end
 
@@ -206,7 +206,7 @@ describe Grape::Validations::ParamsScope do
             requires :b
           end
         end
-      end.to raise_error Grape::Exceptions::MissingGroupTypeError
+      end.to raise_error GrapeV0_14_0::Exceptions::MissingGroupTypeError
 
       expect do
         subject.params do
@@ -214,7 +214,7 @@ describe Grape::Validations::ParamsScope do
             requires :b
           end
         end
-      end.to raise_error Grape::Exceptions::MissingGroupTypeError
+      end.to raise_error GrapeV0_14_0::Exceptions::MissingGroupTypeError
     end
 
     it 'allows Hash as type' do
@@ -262,7 +262,7 @@ describe Grape::Validations::ParamsScope do
             requires :b
           end
         end
-      end.to raise_error Grape::Exceptions::UnsupportedGroupTypeError
+      end.to raise_error GrapeV0_14_0::Exceptions::UnsupportedGroupTypeError
 
       expect do
         subject.params do
@@ -270,7 +270,7 @@ describe Grape::Validations::ParamsScope do
             requires :b
           end
         end
-      end.to raise_error Grape::Exceptions::UnsupportedGroupTypeError
+      end.to raise_error GrapeV0_14_0::Exceptions::UnsupportedGroupTypeError
     end
   end
 
@@ -303,7 +303,7 @@ describe Grape::Validations::ParamsScope do
           given :c do
           end
         end
-      end.to raise_error(Grape::Exceptions::UnknownParameter)
+      end.to raise_error(GrapeV0_14_0::Exceptions::UnknownParameter)
     end
 
     it 'includes the parameter within #declared(params)' do

@@ -14,7 +14,7 @@ module DeeplyIncludedOptionsSpec
       include DeeplyIncludedOptionsSpec::Defaults
     end
 
-    class Users < Grape::API
+    class Users < GrapeV0_14_0::API
       include DeeplyIncludedOptionsSpec::Admin::Defaults
 
       resource :users do
@@ -25,12 +25,12 @@ module DeeplyIncludedOptionsSpec
     end
   end
 
-  class Main < Grape::API
+  class Main < GrapeV0_14_0::API
     mount DeeplyIncludedOptionsSpec::Admin::Users
   end
 end
 
-describe Grape::API do
+describe GrapeV0_14_0::API do
   subject { DeeplyIncludedOptionsSpec::Main }
 
   def app

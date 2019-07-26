@@ -1,9 +1,9 @@
 require 'spec_helper'
 require 'shared/versioning_examples'
-require 'grape-entity'
+require 'grape-entity_v0_7_1'
 
-describe Grape::API do
-  subject { Class.new(Grape::API) }
+describe GrapeV0_14_0::API do
+  subject { Class.new(GrapeV0_14_0::API) }
 
   def app
     subject
@@ -130,13 +130,13 @@ describe Grape::API do
 
   describe '.represent' do
     it 'requires a :with option' do
-      expect { subject.represent Object, {} }.to raise_error(Grape::Exceptions::InvalidWithOptionForRepresent)
+      expect { subject.represent Object, {} }.to raise_error(GrapeV0_14_0::Exceptions::InvalidWithOptionForRepresent)
     end
 
     it 'adds the association to the :representations setting' do
       klass = Class.new
       subject.represent Object, with: klass
-      expect(Grape::DSL::Configuration.stacked_hash_to_hash(subject.namespace_stackable(:representations))[Object]).to eq(klass)
+      expect(GrapeV0_14_0::DSL::Configuration.stacked_hash_to_hash(subject.namespace_stackable(:representations))[Object]).to eq(klass)
     end
   end
 
@@ -1023,7 +1023,7 @@ describe Grape::API do
       end
 
       it 'mounts behind error middleware' do
-        m = Class.new(Grape::Middleware::Base) do
+        m = Class.new(GrapeV0_14_0::Middleware::Base) do
           def before
             throw :error, message: 'Caught in the Net', status: 400
           end
@@ -1088,7 +1088,7 @@ describe Grape::API do
 
       subject.get(:hello) { 'Hello, world.' }
       get '/hello', {}, 'HTTP_AUTHORIZATION' => encode_basic_auth('allow', 'whatever')
-      expect(basic_auth_context).to be_a_kind_of(Grape::Endpoint)
+      expect(basic_auth_context).to be_a_kind_of(GrapeV0_14_0::Endpoint)
     end
 
     it 'has access to helper methods' do
@@ -1125,7 +1125,7 @@ describe Grape::API do
 
   describe '.logger' do
     subject do
-      Class.new(Grape::API) do
+      Class.new(GrapeV0_14_0::API) do
         def self.io
           @io ||= StringIO.new
         end
@@ -1329,14 +1329,14 @@ describe Grape::API do
       expect { get '/unrescued' }.to raise_error
     end
 
-    context 'CustomError subclass of Grape::Exceptions::Base' do
+    context 'CustomError subclass of GrapeV0_14_0::Exceptions::Base' do
       before do
         module ApiSpec
-          class CustomError < Grape::Exceptions::Base; end
+          class CustomError < GrapeV0_14_0::Exceptions::Base; end
         end
       end
 
-      it 'does not re-raise exceptions of type Grape::Exceptions::Base' do
+      it 'does not re-raise exceptions of type GrapeV0_14_0::Exceptions::Base' do
         subject.get('/custom_exception') { fail ApiSpec::CustomError }
 
         expect { get '/custom_exception' }.not_to raise_error
@@ -1359,7 +1359,7 @@ describe Grape::API do
     it 'can rescue exceptions raised in the formatter' do
       formatter = double(:formatter)
       allow(formatter).to receive(:call) { fail StandardError }
-      allow(Grape::Formatter::Base).to receive(:formatter_for) { formatter }
+      allow(GrapeV0_14_0::Formatter::Base).to receive(:formatter_for) { formatter }
 
       subject.rescue_from :all do |_e|
         rack_response('Formatter Error', 500)
@@ -1897,7 +1897,7 @@ describe Grape::API do
 
   context 'http_codes' do
     let(:error_presenter) do
-      Class.new(Grape::Entity) do
+      Class.new(GrapeV0_14_0::Entity) do
         expose :code
         expose :static
 
@@ -2398,7 +2398,7 @@ describe Grape::API do
         subject.version 'v1', using: :path
 
         subject.namespace :cool do
-          app = Class.new(Grape::API)
+          app = Class.new(GrapeV0_14_0::API)
           app.get('/awesome') do
             'yo'
           end
@@ -2414,12 +2414,12 @@ describe Grape::API do
         subject.version 'v1', using: :path
 
         subject.namespace :cool do
-          inner_app = Class.new(Grape::API)
+          inner_app = Class.new(GrapeV0_14_0::API)
           inner_app.get('/awesome') do
             'yo'
           end
 
-          app = Class.new(Grape::API)
+          app = Class.new(GrapeV0_14_0::API)
           app.mount inner_app
           mount app
         end
@@ -2433,7 +2433,7 @@ describe Grape::API do
           rack_response("rescued from #{e.message}", 202)
         end
 
-        app = Class.new(Grape::API)
+        app = Class.new(GrapeV0_14_0::API)
 
         subject.namespace :mounted do
           app.rescue_from ArgumentError
@@ -2448,7 +2448,7 @@ describe Grape::API do
 
       it 'collects the routes of the mounted api' do
         subject.namespace :cool do
-          app = Class.new(Grape::API)
+          app = Class.new(GrapeV0_14_0::API)
           app.get('/awesome') {}
           app.post('/sauce') {}
           mount app
@@ -2460,7 +2460,7 @@ describe Grape::API do
 
       it 'mounts on a path' do
         subject.namespace :cool do
-          app = Class.new(Grape::API)
+          app = Class.new(GrapeV0_14_0::API)
           app.get '/awesome' do
             'sauce'
           end
@@ -2472,8 +2472,8 @@ describe Grape::API do
       end
 
       it 'mounts on a nested path' do
-        APP1 = Class.new(Grape::API)
-        APP2 = Class.new(Grape::API)
+        APP1 = Class.new(GrapeV0_14_0::API)
+        APP2 = Class.new(GrapeV0_14_0::API)
         APP2.get '/nice' do
           'play'
         end
@@ -2489,7 +2489,7 @@ describe Grape::API do
       end
 
       it 'responds to options' do
-        app = Class.new(Grape::API)
+        app = Class.new(GrapeV0_14_0::API)
         app.get '/colour' do
           'red'
         end
@@ -2517,7 +2517,7 @@ describe Grape::API do
       it 'responds to options with path versioning' do
         subject.version 'v1', using: :path
         subject.namespace :apples do
-          app = Class.new(Grape::API)
+          app = Class.new(GrapeV0_14_0::API)
           app.get('/colour') do
             'red'
           end
@@ -2532,7 +2532,7 @@ describe Grape::API do
       end
 
       it 'mounts a versioned API with nested resources' do
-        api = Class.new(Grape::API) do
+        api = Class.new(GrapeV0_14_0::API) do
           version 'v1'
           resources :users do
             get :hello do
@@ -2547,7 +2547,7 @@ describe Grape::API do
       end
 
       it 'mounts a prefixed API with nested resources' do
-        api = Class.new(Grape::API) do
+        api = Class.new(GrapeV0_14_0::API) do
           prefix 'api'
           resources :users do
             get :hello do
@@ -2562,7 +2562,7 @@ describe Grape::API do
       end
 
       it 'applies format to a mounted API with nested resources' do
-        api = Class.new(Grape::API) do
+        api = Class.new(GrapeV0_14_0::API) do
           format :json
           resources :users do
             get do
@@ -2577,7 +2577,7 @@ describe Grape::API do
       end
 
       it 'applies auth to a mounted API with nested resources' do
-        api = Class.new(Grape::API) do
+        api = Class.new(GrapeV0_14_0::API) do
           format :json
           http_basic do |username, password|
             username == 'username' && password == 'password'
@@ -2598,7 +2598,7 @@ describe Grape::API do
       end
 
       it 'mounts multiple versioned APIs with nested resources' do
-        api1 = Class.new(Grape::API) do
+        api1 = Class.new(GrapeV0_14_0::API) do
           version 'one', using: :header, vendor: 'test'
           resources :users do
             get :hello do
@@ -2607,7 +2607,7 @@ describe Grape::API do
           end
         end
 
-        api2 = Class.new(Grape::API) do
+        api2 = Class.new(GrapeV0_14_0::API) do
           version 'two', using: :header, vendor: 'test'
           resources :users do
             get :hello do
@@ -2783,7 +2783,7 @@ describe Grape::API do
         expect(last_response.body).to eq({ meaning_of_life: 42 }.to_s)
       end
       it 'raised :error from middleware' do
-        middleware = Class.new(Grape::Middleware::Base) do
+        middleware = Class.new(GrapeV0_14_0::Middleware::Base) do
           def before
             throw :error, message: 'Unauthorized', status: 42
           end
@@ -2876,7 +2876,7 @@ XML
 XML
       end
       it 'raised :error from middleware' do
-        middleware = Class.new(Grape::Middleware::Base) do
+        middleware = Class.new(GrapeV0_14_0::Middleware::Base) do
           def before
             throw :error, message: 'Unauthorized', status: 42
           end
@@ -2898,12 +2898,12 @@ XML
 
   context 'catch-all' do
     before do
-      api1 = Class.new(Grape::API)
+      api1 = Class.new(GrapeV0_14_0::API)
       api1.version 'v1', using: :path
       api1.get 'hello' do
         'v1'
       end
-      api2 = Class.new(Grape::API)
+      api2 = Class.new(GrapeV0_14_0::API)
       api2.version 'v2', using: :path
       api2.get 'hello' do
         'v2'

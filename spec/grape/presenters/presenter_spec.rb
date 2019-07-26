@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-module Grape
+module GrapeV0_14_0
   module Presenters
     module PresenterSpec
       class Dummy
-        include Grape::DSL::InsideRoute
+        include GrapeV0_14_0::DSL::InsideRoute
 
         attr_reader :env, :request, :new_settings
 
@@ -36,7 +36,7 @@ module Grape
 
         describe 'instance' do
           before do
-            subject.present hash_mock, with: Grape::Presenters::Presenter
+            subject.present hash_mock, with: GrapeV0_14_0::Presenters::Presenter
           end
           it 'presents dummy hash' do
             expect(subject.body).to eq hash_mock
@@ -54,8 +54,8 @@ module Grape
 
           describe 'instance' do
             before do
-              subject.present hash_mock1, with: Grape::Presenters::Presenter
-              subject.present hash_mock2, with: Grape::Presenters::Presenter
+              subject.present hash_mock1, with: GrapeV0_14_0::Presenters::Presenter
+              subject.present hash_mock2, with: GrapeV0_14_0::Presenters::Presenter
             end
 
             it 'presents both dummy presenter' do

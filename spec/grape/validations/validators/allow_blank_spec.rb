@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Grape::Validations::AllowBlankValidator do
+describe GrapeV0_14_0::Validations::AllowBlankValidator do
   module ValidationsSpec
     module AllowBlankValidatorSpec
-      class API < Grape::API
+      class API < GrapeV0_14_0::API
         default_format :json
 
         params do

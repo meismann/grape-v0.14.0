@@ -1,5 +1,5 @@
 require 'spec_helper'
-module Grape
+module GrapeV0_14_0
   module Util
     describe InheritableSetting do
       before :each do
@@ -7,7 +7,7 @@ module Grape
       end
 
       let(:parent) do
-        Grape::Util::InheritableSetting.new.tap do |settings|
+        GrapeV0_14_0::Util::InheritableSetting.new.tap do |settings|
           settings.global[:global_thing] = :global_foo_bar
           settings.namespace[:namespace_thing] = :namespace_foo_bar
           settings.namespace_inheritable[:namespace_inheritable_thing] = :namespace_inheritable_foo_bar
@@ -17,7 +17,7 @@ module Grape
       end
 
       let(:other_parent) do
-        Grape::Util::InheritableSetting.new.tap do |settings|
+        GrapeV0_14_0::Util::InheritableSetting.new.tap do |settings|
           settings.namespace[:namespace_thing] = :namespace_foo_bar_other
           settings.namespace_inheritable[:namespace_inheritable_thing] = :namespace_inheritable_foo_bar_other
           settings.namespace_stackable[:namespace_stackable_thing] = :namespace_stackable_foo_bar_other

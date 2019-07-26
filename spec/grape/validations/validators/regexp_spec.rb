@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Grape::Validations::RegexpValidator do
+describe GrapeV0_14_0::Validations::RegexpValidator do
   module ValidationsSpec
     module RegexpValidatorSpec
-      class API < Grape::API
+      class API < GrapeV0_14_0::API
         default_format :json
 
         params do

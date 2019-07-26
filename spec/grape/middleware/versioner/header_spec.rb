@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Grape::Middleware::Versioner::Header do
+describe GrapeV0_14_0::Middleware::Versioner::Header do
   let(:app) { ->(env) { [200, env, env] } }
-  subject { Grape::Middleware::Versioner::Header.new(app, @options || {}) }
+  subject { GrapeV0_14_0::Middleware::Versioner::Header.new(app, @options || {}) }
 
   before do
     @options = {
@@ -86,7 +86,7 @@ describe Grape::Middleware::Versioner::Header do
     it 'fails with 406 Not Acceptable if vendor is invalid' do
       expect { subject.call('HTTP_ACCEPT' => 'application/vnd.othervendor+json').last }
         .to raise_exception do |exception|
-          expect(exception).to be_a(Grape::Exceptions::InvalidAcceptHeader)
+          expect(exception).to be_a(GrapeV0_14_0::Exceptions::InvalidAcceptHeader)
           expect(exception.headers).to eql('X-Cascade' => 'pass')
           expect(exception.status).to eql 406
           expect(exception.message).to include 'API vendor not found'
@@ -113,7 +113,7 @@ describe Grape::Middleware::Versioner::Header do
       it 'fails with 406 Not Acceptable if vendor is invalid' do
         expect { subject.call('HTTP_ACCEPT' => 'application/vnd.othervendor-v1+json').last }
           .to raise_exception do |exception|
-            expect(exception).to be_a(Grape::Exceptions::InvalidAcceptHeader)
+            expect(exception).to be_a(GrapeV0_14_0::Exceptions::InvalidAcceptHeader)
             expect(exception.headers).to eql('X-Cascade' => 'pass')
             expect(exception.status).to eql 406
             expect(exception.message).to include('API vendor not found')
@@ -141,7 +141,7 @@ describe Grape::Middleware::Versioner::Header do
 
     it 'fails with 406 Not Acceptable if version is invalid' do
       expect { subject.call('HTTP_ACCEPT' => 'application/vnd.vendor-v2+json').last }.to raise_exception do |exception|
-        expect(exception).to be_a(Grape::Exceptions::InvalidVersionHeader)
+        expect(exception).to be_a(GrapeV0_14_0::Exceptions::InvalidVersionHeader)
         expect(exception.headers).to eql('X-Cascade' => 'pass')
         expect(exception.status).to eql 406
         expect(exception.message).to include('API version not found')
@@ -168,7 +168,7 @@ describe Grape::Middleware::Versioner::Header do
 
     it 'fails with 406 Not Acceptable if header is not set' do
       expect { subject.call({}).last }.to raise_exception do |exception|
-        expect(exception).to be_a(Grape::Exceptions::InvalidAcceptHeader)
+        expect(exception).to be_a(GrapeV0_14_0::Exceptions::InvalidAcceptHeader)
         expect(exception.headers).to eql('X-Cascade' => 'pass')
         expect(exception.status).to eql 406
         expect(exception.message).to include('Accept header must be set.')
@@ -177,7 +177,7 @@ describe Grape::Middleware::Versioner::Header do
 
     it 'fails with 406 Not Acceptable if header is empty' do
       expect { subject.call('HTTP_ACCEPT' => '').last }.to raise_exception do |exception|
-        expect(exception).to be_a(Grape::Exceptions::InvalidAcceptHeader)
+        expect(exception).to be_a(GrapeV0_14_0::Exceptions::InvalidAcceptHeader)
         expect(exception.headers).to eql('X-Cascade' => 'pass')
         expect(exception.status).to eql 406
         expect(exception.message).to include('Accept header must be set.')
@@ -198,7 +198,7 @@ describe Grape::Middleware::Versioner::Header do
 
     it 'fails with 406 Not Acceptable if header is not set' do
       expect { subject.call({}).last }.to raise_exception do |exception|
-        expect(exception).to be_a(Grape::Exceptions::InvalidAcceptHeader)
+        expect(exception).to be_a(GrapeV0_14_0::Exceptions::InvalidAcceptHeader)
         expect(exception.headers).to eql({})
         expect(exception.status).to eql 406
         expect(exception.message).to include('Accept header must be set.')
@@ -208,7 +208,7 @@ describe Grape::Middleware::Versioner::Header do
     it 'fails with 406 Not Acceptable if header is application/xml' do
       expect { subject.call('HTTP_ACCEPT' => 'application/xml').last }
         .to raise_exception do |exception|
-        expect(exception).to be_a(Grape::Exceptions::InvalidAcceptHeader)
+        expect(exception).to be_a(GrapeV0_14_0::Exceptions::InvalidAcceptHeader)
         expect(exception.headers).to eql({})
         expect(exception.status).to eql 406
         expect(exception.message).to include('API vendor or version not found.')
@@ -217,7 +217,7 @@ describe Grape::Middleware::Versioner::Header do
 
     it 'fails with 406 Not Acceptable if header is empty' do
       expect { subject.call('HTTP_ACCEPT' => '').last }.to raise_exception do |exception|
-        expect(exception).to be_a(Grape::Exceptions::InvalidAcceptHeader)
+        expect(exception).to be_a(GrapeV0_14_0::Exceptions::InvalidAcceptHeader)
         expect(exception.headers).to eql({})
         expect(exception.status).to eql 406
         expect(exception.message).to include('Accept header must be set.')
@@ -244,7 +244,7 @@ describe Grape::Middleware::Versioner::Header do
 
     it 'fails with another version' do
       expect { subject.call('HTTP_ACCEPT' => 'application/vnd.vendor-v3+json') }.to raise_exception do |exception|
-        expect(exception).to be_a(Grape::Exceptions::InvalidVersionHeader)
+        expect(exception).to be_a(GrapeV0_14_0::Exceptions::InvalidVersionHeader)
         expect(exception.headers).to eql('X-Cascade' => 'pass')
         expect(exception.status).to eql 406
         expect(exception.message).to include('API version not found')
@@ -254,13 +254,13 @@ describe Grape::Middleware::Versioner::Header do
 
   context 'when there are multiple versions with complex vendor specified with rescue_from :all' do
     subject {
-      Class.new(Grape::API) do
+      Class.new(GrapeV0_14_0::API) do
         rescue_from :all
       end
     }
 
     let(:v1_app) {
-      Class.new(Grape::API) do
+      Class.new(GrapeV0_14_0::API) do
         version 'v1', using: :header, vendor: 'test.a-cool_resource', cascade: false, strict: true
         content_type :v1_test, 'application/vnd.test.a-cool_resource-v1+json'
         formatter :v1_test, ->(object, _) { object }
@@ -275,7 +275,7 @@ describe Grape::Middleware::Versioner::Header do
     }
 
     let(:v2_app) {
-      Class.new(Grape::API) do
+      Class.new(GrapeV0_14_0::API) do
         version 'v2', using: :header, vendor: 'test.a-cool_resource', strict: true
         content_type :v2_test, 'application/vnd.test.a-cool_resource-v2+json'
         formatter :v2_test, ->(object, _) { object }

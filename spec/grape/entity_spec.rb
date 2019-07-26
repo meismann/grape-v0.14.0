@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'grape_entity'
+require 'grape_entity_v0_7_1'
 
-describe Grape::Entity do
-  subject { Class.new(Grape::API) }
+describe GrapeV0_14_0::Entity do
+  subject { Class.new(GrapeV0_14_0::API) }
 
   def app
     subject
@@ -30,7 +30,7 @@ describe Grape::Entity do
     end
 
     it 'pulls a representation from the class options if it exists' do
-      entity = Class.new(Grape::Entity)
+      entity = Class.new(GrapeV0_14_0::Entity)
       allow(entity).to receive(:represent).and_return('Hiya')
 
       subject.represent Object, with: entity
@@ -42,7 +42,7 @@ describe Grape::Entity do
     end
 
     it 'pulls a representation from the class options if the presented object is a collection of objects' do
-      entity = Class.new(Grape::Entity)
+      entity = Class.new(GrapeV0_14_0::Entity)
       allow(entity).to receive(:represent).and_return('Hiya')
 
       module EntitySpec
@@ -73,7 +73,7 @@ describe Grape::Entity do
     end
 
     it 'pulls a representation from the class ancestor if it exists' do
-      entity = Class.new(Grape::Entity)
+      entity = Class.new(GrapeV0_14_0::Entity)
       allow(entity).to receive(:represent).and_return('Hiya')
 
       subclass = Class.new(Object)
@@ -88,7 +88,7 @@ describe Grape::Entity do
 
     it 'automatically uses Klass::Entity if that exists' do
       some_model = Class.new
-      entity = Class.new(Grape::Entity)
+      entity = Class.new(GrapeV0_14_0::Entity)
       allow(entity).to receive(:represent).and_return('Auto-detect!')
 
       some_model.const_set :Entity, entity
@@ -102,7 +102,7 @@ describe Grape::Entity do
 
     it 'automatically uses Klass::Entity based on the first object in the collection being presented' do
       some_model = Class.new
-      entity = Class.new(Grape::Entity)
+      entity = Class.new(GrapeV0_14_0::Entity)
       allow(entity).to receive(:represent).and_return('Auto-detect!')
 
       some_model.const_set :Entity, entity
@@ -115,7 +115,7 @@ describe Grape::Entity do
     end
 
     it 'does not run autodetection for Entity when explicitely provided' do
-      entity = Class.new(Grape::Entity)
+      entity = Class.new(GrapeV0_14_0::Entity)
       some_array = []
 
       subject.get '/example' do
@@ -127,7 +127,7 @@ describe Grape::Entity do
     end
 
     it 'does not use #first method on ActiveRecord::Relation to prevent needless sql query' do
-      entity = Class.new(Grape::Entity)
+      entity = Class.new(GrapeV0_14_0::Entity)
       some_relation = Class.new
       some_model = Class.new
 
@@ -171,7 +171,7 @@ describe Grape::Entity do
 
     [:json, :serializable_hash].each do |format|
       it 'presents with #{format}' do
-        entity = Class.new(Grape::Entity)
+        entity = Class.new(GrapeV0_14_0::Entity)
         entity.root 'examples', 'example'
         entity.expose :id
 
@@ -192,7 +192,7 @@ describe Grape::Entity do
       end
 
       it 'presents with #{format} collection' do
-        entity = Class.new(Grape::Entity)
+        entity = Class.new(GrapeV0_14_0::Entity)
         entity.root 'examples', 'example'
         entity.expose :id
 
@@ -215,7 +215,7 @@ describe Grape::Entity do
     end
 
     it 'presents with xml' do
-      entity = Class.new(Grape::Entity)
+      entity = Class.new(GrapeV0_14_0::Entity)
       entity.root 'examples', 'example'
       entity.expose :name
 
@@ -244,7 +244,7 @@ XML
     end
 
     it 'presents with json' do
-      entity = Class.new(Grape::Entity)
+      entity = Class.new(GrapeV0_14_0::Entity)
       entity.root 'examples', 'example'
       entity.expose :name
 
@@ -271,7 +271,7 @@ XML
       # Include JSONP middleware
       subject.use Rack::JSONP
 
-      entity = Class.new(Grape::Entity)
+      entity = Class.new(GrapeV0_14_0::Entity)
       entity.root 'examples', 'example'
       entity.expose :name
 
@@ -309,7 +309,7 @@ XML
         user1 = user.new(name: 'user1')
         user2 = user.new(name: 'user2')
 
-        entity = Class.new(Grape::Entity)
+        entity = Class.new(GrapeV0_14_0::Entity)
         entity.expose :name
 
         subject.format :json

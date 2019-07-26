@@ -1,39 +1,39 @@
 require 'spec_helper'
 
-describe Grape::Endpoint do
-  subject { Class.new(Grape::API) }
+describe GrapeV0_14_0::Endpoint do
+  subject { Class.new(GrapeV0_14_0::API) }
 
   def app
     subject
   end
 
   describe '.before_each' do
-    after { Grape::Endpoint.before_each(nil) }
+    after { GrapeV0_14_0::Endpoint.before_each(nil) }
 
     it 'should be settable via block' do
       block = ->(_endpoint) { 'noop' }
-      Grape::Endpoint.before_each(&block)
-      expect(Grape::Endpoint.before_each.first).to eq(block)
+      GrapeV0_14_0::Endpoint.before_each(&block)
+      expect(GrapeV0_14_0::Endpoint.before_each.first).to eq(block)
     end
 
     it 'should be settable via reference' do
       block = ->(_endpoint) { 'noop' }
-      Grape::Endpoint.before_each block
-      expect(Grape::Endpoint.before_each.first).to eq(block)
+      GrapeV0_14_0::Endpoint.before_each block
+      expect(GrapeV0_14_0::Endpoint.before_each.first).to eq(block)
     end
 
     it 'should be able to override a helper' do
       subject.get('/') { current_user }
       expect { get '/' }.to raise_error(NameError)
 
-      Grape::Endpoint.before_each do |endpoint|
+      GrapeV0_14_0::Endpoint.before_each do |endpoint|
         allow(endpoint).to receive(:current_user).and_return('Bob')
       end
 
       get '/'
       expect(last_response.body).to eq('Bob')
 
-      Grape::Endpoint.before_each(nil)
+      GrapeV0_14_0::Endpoint.before_each(nil)
       expect { get '/' }.to raise_error(NameError)
     end
 
@@ -44,18 +44,18 @@ describe Grape::Endpoint do
       end
       expect { get '/' }.to raise_error(NameError)
 
-      Grape::Endpoint.before_each do |endpoint|
+      GrapeV0_14_0::Endpoint.before_each do |endpoint|
         allow(endpoint).to receive(:current_user).and_return('Bob')
       end
 
-      Grape::Endpoint.before_each do |endpoint|
+      GrapeV0_14_0::Endpoint.before_each do |endpoint|
         allow(endpoint).to receive(:authenticate_user!).and_return(true)
       end
 
       get '/'
       expect(last_response.body).to eq('Bob')
 
-      Grape::Endpoint.before_each(nil)
+      GrapeV0_14_0::Endpoint.before_each(nil)
       expect { get '/' }.to raise_error(NameError)
     end
   end
@@ -64,7 +64,7 @@ describe Grape::Endpoint do
     it 'takes a settings stack, options, and a block' do
       p = proc {}
       expect do
-        Grape::Endpoint.new(Grape::Util::InheritableSetting.new, {
+        GrapeV0_14_0::Endpoint.new(GrapeV0_14_0::Util::InheritableSetting.new, {
                               path: '/',
                               method: :get
                             }, &p)
@@ -75,7 +75,7 @@ describe Grape::Endpoint do
   it 'sets itself in the env upon call' do
     subject.get('/') { 'Hello world.' }
     get '/'
-    expect(last_request.env['api.endpoint']).to be_kind_of(Grape::Endpoint)
+    expect(last_request.env['api.endpoint']).to be_kind_of(GrapeV0_14_0::Endpoint)
   end
 
   describe '#status' do
@@ -268,7 +268,7 @@ describe Grape::Endpoint do
       subject.get('/declared') { declared(params) }
 
       expect { get('/declared') }.to raise_error(
-        Grape::DSL::InsideRoute::MethodNotYetAvailable)
+        GrapeV0_14_0::DSL::InsideRoute::MethodNotYetAvailable)
     end
 
     it 'has as many keys as there are declared params' do
@@ -848,16 +848,16 @@ describe Grape::Endpoint do
   describe '.generate_api_method' do
     it 'raises NameError if the method name is already in use' do
       expect do
-        Grape::Endpoint.generate_api_method('version', &proc {})
+        GrapeV0_14_0::Endpoint.generate_api_method('version', &proc {})
       end.to raise_error(NameError)
     end
     it 'raises ArgumentError if a block is not given' do
       expect do
-        Grape::Endpoint.generate_api_method('GET without a block method')
+        GrapeV0_14_0::Endpoint.generate_api_method('GET without a block method')
       end.to raise_error(ArgumentError)
     end
     it 'returns a Proc' do
-      expect(Grape::Endpoint.generate_api_method('GET test for a proc', &proc {})).to be_a Proc
+      expect(GrapeV0_14_0::Endpoint.generate_api_method('GET test for a proc', &proc {})).to be_a Proc
     end
   end
 
@@ -1028,38 +1028,38 @@ describe Grape::Endpoint do
 
       # In order that the events finalized (time each block ended)
       expect(@events).to contain_exactly(
-        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(Grape::Endpoint),
+        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(GrapeV0_14_0::Endpoint),
                                                                        filters: a_collection_containing_exactly(an_instance_of(Proc)),
                                                                        type: :before }),
-        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(Grape::Endpoint),
+        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(GrapeV0_14_0::Endpoint),
                                                                        filters: [],
                                                                        type: :before_validation }),
-        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(Grape::Endpoint),
+        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(GrapeV0_14_0::Endpoint),
                                                                        filters: [],
                                                                        type: :after_validation }),
-        have_attributes(name: 'endpoint_render.grape',      payload: { endpoint: a_kind_of(Grape::Endpoint) }),
-        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(Grape::Endpoint),
+        have_attributes(name: 'endpoint_render.grape',      payload: { endpoint: a_kind_of(GrapeV0_14_0::Endpoint) }),
+        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(GrapeV0_14_0::Endpoint),
                                                                        filters: [],
                                                                        type: :after }),
-        have_attributes(name: 'endpoint_run.grape', payload: { endpoint: a_kind_of(Grape::Endpoint),
+        have_attributes(name: 'endpoint_run.grape', payload: { endpoint: a_kind_of(GrapeV0_14_0::Endpoint),
                                                                env: an_instance_of(Hash) })
       )
 
       # In order that events were initialized
       expect(@events.sort_by(&:time)).to contain_exactly(
-        have_attributes(name: 'endpoint_run.grape', payload: { endpoint: a_kind_of(Grape::Endpoint),
+        have_attributes(name: 'endpoint_run.grape', payload: { endpoint: a_kind_of(GrapeV0_14_0::Endpoint),
                                                                env: an_instance_of(Hash) }),
-        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(Grape::Endpoint),
+        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(GrapeV0_14_0::Endpoint),
                                                                        filters: a_collection_containing_exactly(an_instance_of(Proc)),
                                                                        type: :before }),
-        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(Grape::Endpoint),
+        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(GrapeV0_14_0::Endpoint),
                                                                        filters: [],
                                                                        type: :before_validation }),
-        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(Grape::Endpoint),
+        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(GrapeV0_14_0::Endpoint),
                                                                        filters: [],
                                                                        type: :after_validation }),
-        have_attributes(name: 'endpoint_render.grape',      payload: { endpoint: a_kind_of(Grape::Endpoint) }),
-        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(Grape::Endpoint),
+        have_attributes(name: 'endpoint_render.grape',      payload: { endpoint: a_kind_of(GrapeV0_14_0::Endpoint) }),
+        have_attributes(name: 'endpoint_run_filters.grape', payload: { endpoint: a_kind_of(GrapeV0_14_0::Endpoint),
                                                                        filters: [],
                                                                        type: :after })
       )

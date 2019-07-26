@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Grape::Exceptions::MissingMimeType do
+describe GrapeV0_14_0::Exceptions::MissingMimeType do
   describe '#message' do
     let(:error) do
       described_class.new('new_json')

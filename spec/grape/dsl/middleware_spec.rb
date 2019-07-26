@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-module Grape
+module GrapeV0_14_0
   module DSL
     module MiddlewareSpec
       class Dummy
-        include Grape::DSL::Middleware
+        include GrapeV0_14_0::DSL::Middleware
       end
     end
     describe Middleware do

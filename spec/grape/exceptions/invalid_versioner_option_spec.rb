@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe Grape::Exceptions::InvalidVersionerOption do
+describe GrapeV0_14_0::Exceptions::InvalidVersionerOption do
   describe '#message' do
     let(:error) do
       described_class.new('headers')

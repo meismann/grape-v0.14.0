@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Grape::Validations::AllOrNoneOfValidator do
+describe GrapeV0_14_0::Validations::AllOrNoneOfValidator do
   describe '#validate!' do
     let(:scope) do
       Struct.new(:opts) do
@@ -44,7 +44,7 @@ describe Grape::Validations::AllOrNoneOfValidator do
       it 'raises a validation exception' do
         expect do
           validator.validate! params
-        end.to raise_error(Grape::Exceptions::Validation)
+        end.to raise_error(GrapeV0_14_0::Exceptions::Validation)
       end
       context 'mixed with other params' do
         let(:mixed_params) { params.merge!(other: true, andanother: true) }
@@ -52,7 +52,7 @@ describe Grape::Validations::AllOrNoneOfValidator do
         it 'raise a validation exception' do
           expect do
             validator.validate! params
-          end.to raise_error(Grape::Exceptions::Validation)
+          end.to raise_error(GrapeV0_14_0::Exceptions::Validation)
         end
       end
     end

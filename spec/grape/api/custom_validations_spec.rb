@@ -1,20 +1,20 @@
 require 'spec_helper'
 
-describe Grape::Validations do
+describe GrapeV0_14_0::Validations do
   before do
     module CustomValidationsSpec
-      class DefaultLength < Grape::Validations::Base
+      class DefaultLength < GrapeV0_14_0::Validations::Base
         def validate_param!(attr_name, params)
           @option = params[:max].to_i if params.key?(:max)
           return if params[attr_name].length <= @option
-          fail Grape::Exceptions::Validation, params: [@scope.full_name(attr_name)], message: "must be at the most #{@option} characters long"
+          fail GrapeV0_14_0::Exceptions::Validation, params: [@scope.full_name(attr_name)], message: "must be at the most #{@option} characters long"
         end
       end
     end
   end
 
   subject do
-    Class.new(Grape::API) do
+    Class.new(GrapeV0_14_0::API) do
       params do
         requires :text, default_length: 140
       end

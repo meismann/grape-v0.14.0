@@ -1,15 +1,15 @@
 require 'spec_helper'
 
-describe Grape::API::Helpers do
+describe GrapeV0_14_0::API::Helpers do
   module NestedHelpersSpec
     module HelperMethods
-      extend Grape::API::Helpers
+      extend GrapeV0_14_0::API::Helpers
       def current_user
         @current_user ||= params[:current_user]
       end
     end
 
-    class Nested < Grape::API
+    class Nested < GrapeV0_14_0::API
       resource :level1 do
         helpers HelperMethods
 
@@ -25,7 +25,7 @@ describe Grape::API::Helpers do
       end
     end
 
-    class Main < Grape::API
+    class Main < GrapeV0_14_0::API
       mount Nested
     end
   end

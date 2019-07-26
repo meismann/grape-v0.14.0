@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Grape::Validations::DefaultValidator do
+describe GrapeV0_14_0::Validations::DefaultValidator do
   module ValidationsSpec
     module DefaultValidatorSpec
-      class API < Grape::API
+      class API < GrapeV0_14_0::API
         default_format :json
 
         params do
@@ -101,7 +101,7 @@ describe Grape::Validations::DefaultValidator do
 
   context 'optional group with defaults' do
     subject do
-      Class.new(Grape::API) do
+      Class.new(GrapeV0_14_0::API) do
         default_format :json
       end
     end

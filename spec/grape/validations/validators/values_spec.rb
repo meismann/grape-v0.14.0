@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Grape::Validations::ValuesValidator do
+describe GrapeV0_14_0::Validations::ValuesValidator do
   module ValidationsSpec
     class ValuesModel
       DEFAULT_VALUES = ['valid-type1', 'valid-type2', 'valid-type3']
@@ -18,7 +18,7 @@ describe Grape::Validations::ValuesValidator do
     end
 
     module ValuesValidatorSpec
-      class API < Grape::API
+      class API < GrapeV0_14_0::API
         default_format :json
 
         params do
@@ -161,24 +161,24 @@ describe Grape::Validations::ValuesValidator do
   end
 
   it 'raises IncompatibleOptionValues on an invalid default value from proc' do
-    subject = Class.new(Grape::API)
+    subject = Class.new(GrapeV0_14_0::API)
     expect do
       subject.params { optional :type, values: ['valid-type1', 'valid-type2', 'valid-type3'], default: ValidationsSpec::ValuesModel.values.sample + '_invalid' }
-    end.to raise_error Grape::Exceptions::IncompatibleOptionValues
+    end.to raise_error GrapeV0_14_0::Exceptions::IncompatibleOptionValues
   end
 
   it 'raises IncompatibleOptionValues on an invalid default value' do
-    subject = Class.new(Grape::API)
+    subject = Class.new(GrapeV0_14_0::API)
     expect do
       subject.params { optional :type, values: ['valid-type1', 'valid-type2', 'valid-type3'], default: 'invalid-type' }
-    end.to raise_error Grape::Exceptions::IncompatibleOptionValues
+    end.to raise_error GrapeV0_14_0::Exceptions::IncompatibleOptionValues
   end
 
   it 'raises IncompatibleOptionValues when type is incompatible with values array' do
-    subject = Class.new(Grape::API)
+    subject = Class.new(GrapeV0_14_0::API)
     expect do
       subject.params { optional :type, values: ['valid-type1', 'valid-type2', 'valid-type3'], type: Symbol }
-    end.to raise_error Grape::Exceptions::IncompatibleOptionValues
+    end.to raise_error GrapeV0_14_0::Exceptions::IncompatibleOptionValues
   end
 
   it 'allows values to be true or false when setting the type to boolean' do
@@ -199,15 +199,15 @@ describe Grape::Validations::ValuesValidator do
   end
 
   it 'raises IncompatibleOptionValues when values contains a value that is not a kind of the type' do
-    subject = Class.new(Grape::API)
+    subject = Class.new(GrapeV0_14_0::API)
     expect do
       subject.params { requires :type, values: [10.5, 11], type: Integer }
-    end.to raise_error Grape::Exceptions::IncompatibleOptionValues
+    end.to raise_error GrapeV0_14_0::Exceptions::IncompatibleOptionValues
   end
 
   context 'with a lambda values' do
     subject do
-      Class.new(Grape::API) do
+      Class.new(GrapeV0_14_0::API) do
         params do
           optional :type, type: String, values: -> { [SecureRandom.uuid] }, default: -> { SecureRandom.uuid }
         end
@@ -236,7 +236,7 @@ describe Grape::Validations::ValuesValidator do
 
   context 'with a range of values' do
     subject(:app) do
-      Class.new(Grape::API) do
+      Class.new(GrapeV0_14_0::API) do
         params do
           optional :value, type: Float, values: 0.0..10.0
         end

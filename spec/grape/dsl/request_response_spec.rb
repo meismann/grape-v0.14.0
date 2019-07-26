@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-module Grape
+module GrapeV0_14_0
   module DSL
     module RequestResponseSpec
       class Dummy
-        include Grape::DSL::RequestResponse
+        include GrapeV0_14_0::DSL::RequestResponse
 
         def self.set(key, value)
           settings[key.to_sym] = value
@@ -37,7 +37,7 @@ module Grape
       describe '.format' do
         it 'sets a new format' do
           expect(subject).to receive(:namespace_inheritable).with(:format, format.to_sym)
-          expect(subject).to receive(:namespace_inheritable).with(:default_error_formatter, Grape::ErrorFormatter::Txt)
+          expect(subject).to receive(:namespace_inheritable).with(:default_error_formatter, GrapeV0_14_0::ErrorFormatter::Txt)
 
           subject.format format
         end
@@ -59,7 +59,7 @@ module Grape
 
       describe '.default_error_formatter' do
         it 'sets a new error formatter' do
-          expect(subject).to receive(:namespace_inheritable).with(:default_error_formatter, Grape::ErrorFormatter::Json)
+          expect(subject).to receive(:namespace_inheritable).with(:default_error_formatter, GrapeV0_14_0::ErrorFormatter::Json)
           subject.default_error_formatter :json
         end
       end

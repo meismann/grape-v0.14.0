@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Grape::Validations do
-  subject { Class.new(Grape::API) }
+describe GrapeV0_14_0::Validations do
+  subject { Class.new(GrapeV0_14_0::API) }
 
   def app
     subject
@@ -47,7 +47,7 @@ describe Grape::Validations do
       end
     end
 
-    context 'optional using Grape::Entity documentation' do
+    context 'optional using GrapeV0_14_0::Entity documentation' do
       def define_optional_using
         documentation = { field_a: { type: String }, field_b: { type: String } }
         subject.params do
@@ -120,7 +120,7 @@ describe Grape::Validations do
       end
     end
 
-    context 'requires :all using Grape::Entity documentation' do
+    context 'requires :all using GrapeV0_14_0::Entity documentation' do
       def define_requires_all
         documentation = {
           required_field: { type: String },
@@ -155,7 +155,7 @@ describe Grape::Validations do
       end
     end
 
-    context 'requires :none using Grape::Entity documentation' do
+    context 'requires :none using GrapeV0_14_0::Entity documentation' do
       def define_requires_none
         documentation = {
           required_field: { type: String },
@@ -190,7 +190,7 @@ describe Grape::Validations do
       end
     end
 
-    context 'requires :all or :none but except a non-existent field using Grape::Entity documentation' do
+    context 'requires :all or :none but except a non-existent field using GrapeV0_14_0::Entity documentation' do
       context 'requires :all' do
         def define_requires_all
           documentation = {
@@ -405,10 +405,10 @@ describe Grape::Validations do
     context 'custom validator for a Hash' do
       module ValuesSpec
         module DateRangeValidations
-          class DateRangeValidator < Grape::Validations::Base
+          class DateRangeValidator < GrapeV0_14_0::Validations::Base
             def validate_param!(attr_name, params)
               return if params[attr_name][:from] <= params[attr_name][:to]
-              fail Grape::Exceptions::Validation, params: [@scope.full_name(attr_name)], message: "'from' must be lower or equal to 'to'"
+              fail GrapeV0_14_0::Exceptions::Validation, params: [@scope.full_name(attr_name)], message: "'from' must be lower or equal to 'to'"
             end
           end
         end
@@ -791,10 +791,10 @@ describe Grape::Validations do
 
     context 'custom validation' do
       module CustomValidations
-        class Customvalidator < Grape::Validations::Base
+        class Customvalidator < GrapeV0_14_0::Validations::Base
           def validate_param!(attr_name, params)
             return if params[attr_name] == 'im custom'
-            fail Grape::Exceptions::Validation, params: [@scope.full_name(attr_name)], message: 'is not custom!'
+            fail GrapeV0_14_0::Exceptions::Validation, params: [@scope.full_name(attr_name)], message: 'is not custom!'
           end
         end
       end
@@ -939,10 +939,10 @@ describe Grape::Validations do
 
       context 'when using options on param' do
         module CustomValidations
-          class CustomvalidatorWithOptions < Grape::Validations::Base
+          class CustomvalidatorWithOptions < GrapeV0_14_0::Validations::Base
             def validate_param!(attr_name, params)
               return if params[attr_name] == @option[:text]
-              fail Grape::Exceptions::Validation, params: [@scope.full_name(attr_name)], message: @option[:error_message]
+              fail GrapeV0_14_0::Exceptions::Validation, params: [@scope.full_name(attr_name)], message: @option[:error_message]
             end
           end
         end
@@ -977,9 +977,9 @@ describe Grape::Validations do
           end
         end
 
-        it 'in helper module which kind of Grape::DSL::Helpers::BaseHelper' do
+        it 'in helper module which kind of GrapeV0_14_0::DSL::Helpers::BaseHelper' do
           shared_params = Module.new do
-            extend Grape::DSL::Helpers::BaseHelper
+            extend GrapeV0_14_0::DSL::Helpers::BaseHelper
             params :pagination do
             end
           end
@@ -990,7 +990,7 @@ describe Grape::Validations do
       context 'can be included in usual params' do
         before do
           shared_params = Module.new do
-            extend Grape::DSL::Helpers::BaseHelper
+            extend GrapeV0_14_0::DSL::Helpers::BaseHelper
             params :period do
               optional :start_date
               optional :end_date

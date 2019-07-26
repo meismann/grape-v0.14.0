@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe Grape::Exceptions::InvalidFormatter do
+describe GrapeV0_14_0::Exceptions::InvalidFormatter do
   describe '#message' do
     let(:error) do
       described_class.new(String, 'xml')

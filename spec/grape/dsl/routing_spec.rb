@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-module Grape
+module GrapeV0_14_0
   module DSL
     module RoutingSpec
       class Dummy
-        include Grape::DSL::Routing
+        include GrapeV0_14_0::DSL::Routing
       end
     end
 
@@ -47,9 +47,9 @@ module Grape
 
       describe '.mount' do
         it 'mounts on a nested path' do
-          subject = Class.new(Grape::API)
-          app1 = Class.new(Grape::API)
-          app2 = Class.new(Grape::API)
+          subject = Class.new(GrapeV0_14_0::API)
+          app1 = Class.new(GrapeV0_14_0::API)
+          app2 = Class.new(GrapeV0_14_0::API)
           app2.get '/nice' do
             'play'
           end
@@ -95,9 +95,9 @@ module Grape
 
         it 'generates correct endpoint options' do
           allow(subject).to receive(:route_setting).with(:description).and_return(fiz: 'baz')
-          allow(Grape::DSL::Configuration).to receive(:stacked_hash_to_hash).and_return(nuz: 'naz')
+          allow(GrapeV0_14_0::DSL::Configuration).to receive(:stacked_hash_to_hash).and_return(nuz: 'naz')
 
-          expect(Grape::Endpoint).to receive(:new) do |_inheritable_setting, endpoint_options|
+          expect(GrapeV0_14_0::Endpoint).to receive(:new) do |_inheritable_setting, endpoint_options|
             expect(endpoint_options[:method]).to eq :get
             expect(endpoint_options[:path]).to eq '/foo'
             expect(endpoint_options[:for]).to eq subject

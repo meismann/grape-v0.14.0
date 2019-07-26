@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Grape::Middleware::Versioner::Param do
+describe GrapeV0_14_0::Middleware::Versioner::Param do
   let(:app) { ->(env) { [200, env, env['api.version']] } }
-  subject { Grape::Middleware::Versioner::Param.new(app, @options || {}) }
+  subject { GrapeV0_14_0::Middleware::Versioner::Param.new(app, @options || {}) }
 
   it 'sets the API version based on the default param (apiver)' do
     env = Rack::MockRequest.env_for('/awesome', params: { 'apiver' => 'v1' })

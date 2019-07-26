@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module Grape
+module GrapeV0_14_0
   describe Request do
     let(:default_method) { 'GET' }
     let(:default_params) { {} }
@@ -19,7 +19,7 @@ module Grape
     let(:env) { default_env }
 
     let(:request) {
-      Grape::Request.new(env)
+      GrapeV0_14_0::Request.new(env)
     }
 
     describe '#params' do
@@ -72,7 +72,7 @@ module Grape
       describe 'with non-HTTP_* stuff in env' do
         let(:request_headers) {
           {
-            'HTP_X_GRAPE_ENTITY_TOO' => 'but now we are testing Grape'
+            'HTP_X_GRAPE_ENTITY_TOO' => 'but now we are testing GrapeV0_14_0'
           }
         }
 

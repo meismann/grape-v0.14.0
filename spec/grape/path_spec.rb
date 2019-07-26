@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module Grape
+module GrapeV0_14_0
   describe Path do
     describe '#initialize' do
       it 'remembers the path' do
